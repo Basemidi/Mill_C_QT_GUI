@@ -4,3 +4,6 @@
 This Project is an implementation of the boardgame Mill providing a graphical user interface for the player.
 The opponant is derived from my adaption of the Monte Carlo Tree Search Algorithm. The user Interface was created
 with Qt.
+
+
+![Alt text](Muehle_example.png?raw=true "Title")
