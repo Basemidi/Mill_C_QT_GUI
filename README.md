@@ -6,4 +6,4 @@ The opponant is derived from my adaption of the Monte Carlo Tree Search Algorith
 with Qt.
 
 
-![Alt text](Muehle_example.png?raw=true "Title")
+![Alt text](Muehle_example.PNG?raw=true "Title")
