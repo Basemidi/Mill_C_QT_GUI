@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>GameLogic.js</file>
+        <file>WhiteGameToken.qml</file>
+        <file>BlackGameToken.qml</file>
+    </qresource>
+</RCC>
