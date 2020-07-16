@@ -515,7 +515,7 @@ Window {
         y: 25
         width: 100
         height: 31
-        text: qsTr("PlayerTag")
+        text: qsTr("Schwarz zieht")
         font.pixelSize: 24
     }
 
