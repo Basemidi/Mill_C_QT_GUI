@@ -510,16 +510,6 @@ Window {
     }
 
     Text {
-        id: whichPlayerText
-        x: 503
-        y: 25
-        width: 100
-        height: 31
-        text: qsTr("Schwarz zieht")
-        font.pixelSize: 24
-    }
-
-    Text {
         id: blackStoneCounter
         x: 590
         y: 144

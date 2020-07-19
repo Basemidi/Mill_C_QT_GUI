@@ -31,12 +31,17 @@ private:
 	std::tuple<int, int>  tokenPos;
 	std::tuple<int, int>  takeAwayPos;
 
+	bool clickPosSet = false;
+	bool tokenPosSet = false;
+	bool takeAwayPosSet = false;
+
 	BackEndInterface backEnd;
 	QObject *parentObject;
 
 	
 	void resetVarPos();
 	void setStoneCount(int token);
+	bool checkFormultipleActions(action act, vector<action> actlist);
 
 	
 

@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     QObject* item = engine.rootObjects().value(0);
     FrontEndInterface front(item);
-
+    
     QObject::connect(item, SIGNAL(positionSignal(int, int)), &front, SLOT(positionClicked(int, int)));
     QObject::connect(item, SIGNAL(startGame()), &front, SLOT(startGame()));
     QObject::connect(item, SIGNAL(tokenSelected(int, int, int)), &front, SLOT(tokenSelected(int, int, int)));

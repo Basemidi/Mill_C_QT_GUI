@@ -192,9 +192,10 @@ std::vector<std::tuple<int, int>> Mill_Board::possibleStones()
 			}
 		}
 	}
-	if (static_cast<int>(stoneLocation.size()) == 0) {
+	/*if (static_cast<int>(stoneLocation.size()) == 0) {
+		
 		stoneLocation.push_back(std::tuple<int, int>(7, 7));
-	}
+	}*/
 
 	return stoneLocation;
 }

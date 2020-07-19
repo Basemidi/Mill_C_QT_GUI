@@ -2,9 +2,13 @@
 #include "Bot_Brain.h"
 #include "Mill_Board.h"
 #include <QObject>
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
+#include <QQmlEngine>
 
-class BackEndInterface
+class BackEndInterface : public QObject
 {
+	Q_OBJECT
 
 private:
 	Mill_Board board;

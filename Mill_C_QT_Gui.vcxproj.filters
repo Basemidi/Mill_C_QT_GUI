@@ -49,6 +49,9 @@
     <QtMoc Include="FrontEndInterface.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="BackEndInterface.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bot_Brain.h">
@@ -58,9 +61,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BackEndInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
