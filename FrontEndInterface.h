@@ -10,7 +10,8 @@ class FrontEndInterface : public QObject
 	Q_OBJECT
 
 	
-	
+signals:
+	void setStone(int rowIndex, int posIndex, int token);
 
 public slots:
 

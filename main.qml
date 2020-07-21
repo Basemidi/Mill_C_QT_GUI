@@ -18,6 +18,7 @@ Window {
     signal tokenSelected(int ring, int position, int stone)
     signal makeAiMove()
 
+
     function setStone( Ring,  pos,  player){
         Logic.createStoneAtPos(Ring, pos, player)
     }

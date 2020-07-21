@@ -99,7 +99,7 @@ std::vector<action> Mill_Board::possibleActions()
 					else {
 						if (board[i][7] == 0) {
 
-							if (checkforMill(std::tuple<int, int>(i, 7), true, std::tuple<int, int>(i, 7))) {
+							if (checkforMill(std::tuple<int, int>(i, 7), true, std::tuple<int, int>(i, j))) {
 
 								std::vector<std::tuple<int, int>> actns = possibleStones();
 								for (int k = 0; k < static_cast<int>(actns.size()); k++) {
@@ -192,10 +192,10 @@ std::vector<std::tuple<int, int>> Mill_Board::possibleStones()
 			}
 		}
 	}
-	/*if (static_cast<int>(stoneLocation.size()) == 0) {
+	if (static_cast<int>(stoneLocation.size()) == 0) {
 		
 		stoneLocation.push_back(std::tuple<int, int>(7, 7));
-	}*/
+	}
 
 	return stoneLocation;
 }

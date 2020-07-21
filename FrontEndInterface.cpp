@@ -32,7 +32,6 @@ void FrontEndInterface::startGame()
 
 void FrontEndInterface::makeAIMove()
 {
-	qApp->processEvents();
 	action aiAction = backEnd.getAiMove();
 
 	if (std::get<0>(aiAction.location) != 9) {
@@ -70,9 +69,11 @@ void FrontEndInterface::resetVarPos()
 	std::tuple<int, int>* tokenPos = new std::tuple<int, int>();
 	std::tuple<int, int>* takeAwayPos = new std::tuple<int, int>();
 
-	clickPosSet = false;
-	tokenPosSet = false;
-	takeAwayPosSet = false;
+	clickPosSet  = false;
+	tokenPosSet  = false;
+	takeAwayPosSet  = false;
+
+
 }
 
 void FrontEndInterface::setStoneCount(int token)
@@ -99,10 +100,10 @@ void FrontEndInterface::tokenSelected(int rowIndex, int posIndex, int token)
 	}
 	else if (token != playerToken && tokenPosSet) {
 		
-		takeAwayPos == std::make_tuple(rowIndex, posIndex);
+		
 		action act(std::get<0>(tokenPos), std::get<1>(tokenPos),
 			std::get<0>(clickPos), std::get<1>(clickPos),
-			std::get<0>(takeAwayPos), std::get<1>(takeAwayPos));
+			rowIndex, posIndex);
 
 		std::vector<action> actList = backEnd.getActions();
 		resetVarPos();
@@ -188,6 +189,7 @@ void FrontEndInterface::positionClicked(int ringIndex, int posIndex) {
 			Q_ARG(QVariant, std::get<1>(simpleact.target)), 
 			Q_ARG(QVariant, playerToken));
 
+
 		resetVarPos();
 		makeAIMove();
 
@@ -195,7 +197,7 @@ void FrontEndInterface::positionClicked(int ringIndex, int posIndex) {
 	else if (tokenPosSet) {
 		simpleact.location = tokenPos;
 		resetVarPos();
-		if (std::find(actionList.begin(), actionList.end(), simpleact) != actionList.end()) {
+		if (std::find(actionList.begin(), actionList.end(), simpleact) != actionList.end() && checkFormultipleActions(simpleact, actionList)) {
 
 			backEnd.setPlayerMove(simpleact);
 
@@ -211,6 +213,10 @@ void FrontEndInterface::positionClicked(int ringIndex, int posIndex) {
 			
 			makeAIMove();
 
+		}
+		else {
+			clickPos = std::make_tuple(ringIndex, posIndex);
+			clickPosSet = true;
 		}
 	}
 	else {
