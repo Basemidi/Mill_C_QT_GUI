@@ -196,9 +196,10 @@ void FrontEndInterface::positionClicked(int ringIndex, int posIndex) {
 	}
 	else if (tokenPosSet) {
 		simpleact.location = tokenPos;
-		resetVarPos();
+		
 		if (std::find(actionList.begin(), actionList.end(), simpleact) != actionList.end() && checkFormultipleActions(simpleact, actionList)) {
-
+			
+			resetVarPos();
 			backEnd.setPlayerMove(simpleact);
 
 			QMetaObject::invokeMethod(parentObject, "removeStone",

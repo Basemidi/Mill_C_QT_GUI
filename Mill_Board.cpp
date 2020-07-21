@@ -156,7 +156,7 @@ std::vector<action> Mill_Board::possibleActions()
 					for (int k = 0; k < static_cast<int>(board.size()); k++) {
 						for (int l = 0; l < static_cast<int>(board[k].size()); l++) {
 							if (board[k][l] == 0) {
-								if (checkforMill(std::tuple<int, int>(i, ((j + 1) % 8)), true, std::tuple<int, int>(i, j))) {
+								if (checkforMill(std::tuple<int, int>(k, l), true, std::tuple<int, int>(i, j))) {
 
 									std::vector<std::tuple<int, int>> actns = possibleStones();
 									for (int m = 0; m < static_cast<int>(actns.size()); m++) {
