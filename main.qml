@@ -16,7 +16,6 @@ Window {
     signal positionSignal(int ring, int position)
     signal startGame()
     signal tokenSelected(int ring, int position, int stone)
-    signal makeAiMove()
 
 
     function setStone( Ring,  pos,  player){

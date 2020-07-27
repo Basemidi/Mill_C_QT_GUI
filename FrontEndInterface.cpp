@@ -3,9 +3,7 @@
 FrontEndInterface::FrontEndInterface(QObject* qmlObject, QObject *parent)
 	: QObject(parent)
 {
-	
 	parentObject = qmlObject;
-
 }
 
 FrontEndInterface::~FrontEndInterface()
@@ -17,22 +15,13 @@ void FrontEndInterface::startGame()
 	setStoneCount(1);
 	setStoneCount(-1);
 
-	action act = backEnd.getAiMove();
-	QMetaObject::invokeMethod(parentObject, "setStone", Q_ARG(QVariant, std::get<0>(act.target)), Q_ARG(QVariant, std::get<1>(act.target)), Q_ARG(QVariant, 1));
-
-	if (playerToken == -1) {
-		m_whiteStoneCounter--;
-		setStoneCount(1);
-	}
-	else {
-		m_blackStoneCounter--;
-		setStoneCount(-1);
-	}
+	emit setPlayerMoveInBackEnd(action(10, 10, 10, 10));
+	
 }
 
-void FrontEndInterface::makeAIMove()
+void FrontEndInterface::makeAIMove(action aiAction, std::vector<action> actionList)
 {
-	action aiAction = backEnd.getAiMove();
+	this->actList = actionList;
 
 	if (std::get<0>(aiAction.location) != 9) {
 		QMetaObject::invokeMethod(parentObject, "removeStone",
@@ -105,12 +94,12 @@ void FrontEndInterface::tokenSelected(int rowIndex, int posIndex, int token)
 			std::get<0>(clickPos), std::get<1>(clickPos),
 			rowIndex, posIndex);
 
-		std::vector<action> actList = backEnd.getActions();
+		
 		resetVarPos();
 		
 		if (std::find( actList.begin(), actList.end(), act) != actList.end()) {
 
-			backEnd.setPlayerMove(act);
+			
 			QMetaObject::invokeMethod(parentObject, "removeStone",
 				Q_ARG(QVariant, std::get<0>(act.takeAway)),
 				Q_ARG(QVariant, std::get<1>(act.takeAway)));
@@ -124,13 +113,12 @@ void FrontEndInterface::tokenSelected(int rowIndex, int posIndex, int token)
 				Q_ARG(QVariant, std::get<1>(act.target)),
 				Q_ARG(QVariant, playerToken));
 
-			makeAIMove();
+			emit setPlayerMoveInBackEnd(act);
 			
 		}
 	}
 	else if (token != playerToken && clickPosSet) {
 		
-		std::vector<action> actList = backEnd.getActions();
 		
 		action act(9, 9,
 			std::get<0>(clickPos), std::get<1>(clickPos),
@@ -138,7 +126,7 @@ void FrontEndInterface::tokenSelected(int rowIndex, int posIndex, int token)
 
 		resetVarPos();
 		if (std::find(actList.begin(), actList.end(), act) != actList.end()) {
-			backEnd.setPlayerMove(act);
+			emit setPlayerMoveInBackEnd(act);
 
 			if (playerToken == -1) {
 				m_blackStoneCounter--;
@@ -158,7 +146,6 @@ void FrontEndInterface::tokenSelected(int rowIndex, int posIndex, int token)
 				Q_ARG(QVariant, std::get<1>(act.target)),
 				Q_ARG(QVariant, playerToken));
 
-			makeAIMove();
 		}
 	}
 }
@@ -166,13 +153,10 @@ void FrontEndInterface::tokenSelected(int rowIndex, int posIndex, int token)
 
 
 void FrontEndInterface::positionClicked(int ringIndex, int posIndex) {
-
 	
-	vector<action> actionList = backEnd.getActions();
-
 	action simpleact(9, 9, ringIndex, posIndex);
 	
-	if (std::find(actionList.begin(), actionList.end(), simpleact) != actionList.end() && checkFormultipleActions(simpleact, actionList)) {
+	if (std::find(actList.begin(), actList.end(), simpleact) != actList.end() && checkFormultipleActions(simpleact, actList)) {
 		
 		if (playerToken == -1) {
 			m_blackStoneCounter--;
@@ -183,7 +167,7 @@ void FrontEndInterface::positionClicked(int ringIndex, int posIndex) {
 			setStoneCount(1);
 		}
 		
-		backEnd.setPlayerMove(simpleact);
+		emit setPlayerMoveInBackEnd(simpleact);
 		QMetaObject::invokeMethod(parentObject, "setStone", 
 			Q_ARG(QVariant, std::get<0>(simpleact.target)), 
 			Q_ARG(QVariant, std::get<1>(simpleact.target)), 
@@ -191,16 +175,16 @@ void FrontEndInterface::positionClicked(int ringIndex, int posIndex) {
 
 
 		resetVarPos();
-		makeAIMove();
+		
 
 	}
 	else if (tokenPosSet) {
 		simpleact.location = tokenPos;
 		
-		if (std::find(actionList.begin(), actionList.end(), simpleact) != actionList.end() && checkFormultipleActions(simpleact, actionList)) {
+		if (std::find(actList.begin(), actList.end(), simpleact) != actList.end() && checkFormultipleActions(simpleact, actList)) {
 			
 			resetVarPos();
-			backEnd.setPlayerMove(simpleact);
+			emit setPlayerMoveInBackEnd(simpleact);
 
 			QMetaObject::invokeMethod(parentObject, "removeStone",
 				Q_ARG(QVariant, std::get<0>(simpleact.location)),
@@ -211,8 +195,6 @@ void FrontEndInterface::positionClicked(int ringIndex, int posIndex) {
 				Q_ARG(QVariant, std::get<1>(simpleact.target)),
 				Q_ARG(QVariant, playerToken));
 
-			
-			makeAIMove();
 
 		}
 		else {

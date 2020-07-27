@@ -11,14 +11,18 @@ class FrontEndInterface : public QObject
 
 	
 signals:
-	void setStone(int rowIndex, int posIndex, int token);
+	
+	void setPlayerMoveInBackEnd(action act);
 
 public slots:
 
+	//From GUI
 	void positionClicked(int rowIndex, int posIndex);
 	void startGame();
 	void tokenSelected(int rowIndex, int posIndex, int token);
-	void makeAIMove();
+
+	//From Backend
+	void makeAIMove(action aiAction, std::vector<action> actList);
 
 private:
 
@@ -28,6 +32,9 @@ private:
 	int m_whiteStoneCounter = 9;
 	int playerToken = -1;
 
+	bool playerTurn = false;
+	std::vector<action> actList;
+
 	std::tuple<int, int>  clickPos;
 	std::tuple<int, int>  tokenPos;
 	std::tuple<int, int>  takeAwayPos;
@@ -36,7 +43,7 @@ private:
 	bool tokenPosSet = false;
 	bool takeAwayPosSet = false;
 
-	BackEndInterface backEnd;
+	
 	QObject *parentObject;
 
 	

@@ -1,6 +1,8 @@
 #pragma once
 #include<vector>
 #include<tuple>
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
 
 struct action {
 
@@ -14,6 +16,9 @@ struct action {
 		target = std::make_tuple(target1, target2);
 		takeAway = std::make_tuple(take1, take2);
 	}
+	action() {
+
+	}
 
 	bool operator==(const action& act1) {
 
@@ -26,7 +31,7 @@ struct action {
 	}
 
 };
-
+Q_DECLARE_METATYPE(action)
 
 
 
