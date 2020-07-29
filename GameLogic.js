@@ -59,3 +59,13 @@ function removeToken(Ring, pos) {
 	var position = Ring + "" + pos;
 	window.tokens[position].destroy();
 }
+
+function setLoadingScreen() {
+	outerRing.opacity = 0.5
+	loadingScreen.visible = true
+}
+
+function removeLoadingScreen() {
+	outerRing.opacity = 1
+	loadingScreen.visible = false
+}

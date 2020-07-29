@@ -30,7 +30,111 @@ Window {
     function prepForAiMove(){
         makeAiMove()
     }
+    function setLoadingScreen(){
+        Logic.setLoadingScreen()
+    }
+    function removeLoadingScreen(){
+        Logic.removeLoadingScreen();
+    }
 
+    Rectangle{
+        id: loadingScreen
+        x: 10
+        y: 5
+        z: 1
+        width: 465
+        height: 465
+        color: "#50000000"
+        radius: 10
+        visible:false
+
+        Rectangle {
+            id: rotatingBox
+            width: 50
+            height: 50
+            color: "#500000FF"
+            radius: 100
+            anchors.centerIn: parent
+
+            Rectangle{
+                id:cutout
+                width: 50
+                height: 50
+                radius: 100
+                x:25
+                color: "#500000FF"
+
+                Rectangle{
+                    id:cutout2
+                    width: 50
+                    height: 50
+                    radius: 100
+                    x:25
+                    color: "#500000FF"
+
+                    Rectangle{
+                        id:cutout3
+                        width: 50
+                        height: 50
+                        radius: 100
+                        x:25
+                        color: "#500000FF"
+
+                        Rectangle{
+                            id:cutout4
+                            width: 50
+                            height: 50
+                            radius: 100
+                            x:25
+                            color: "#500000FF"
+
+                
+                        }
+
+                        RotationAnimation on rotation {
+                            loops: Animation.Infinite
+                            from: 0
+                            to: 360
+                            duration: 2000
+                
+                        }
+                    }
+
+                    RotationAnimation on rotation {
+                        loops: Animation.Infinite
+                        from: 0
+                        to: 360
+                        duration: 2000
+                
+                    }
+                
+                }
+
+                RotationAnimation on rotation {
+                    loops: Animation.Infinite
+                    from: 0
+                    to: 360
+                    duration: 2000
+                
+                }
+            }
+
+            RotationAnimation on rotation {
+                loops: Animation.Infinite
+                from: 0
+                to: 360
+                duration: 2000
+                
+            }
+        }
+        Text{
+            text: qsTr("Loading")
+            font.pixelSize: 44
+
+            color: "#FF000000"
+            anchors.centerIn: parent
+        }
+    }
 
     Rectangle {
         id: outerRing
@@ -40,6 +144,7 @@ Window {
         y: 25
         width: 430
         height: 430
+        opacity: 1
         border.color: "black"
         border.width: 3
         color: "#ffffff"

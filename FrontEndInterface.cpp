@@ -17,11 +17,13 @@ void FrontEndInterface::startGame()
 
 	emit setPlayerMoveInBackEnd(action(10, 10, 10, 10));
 	
+	QMetaObject::invokeMethod(parentObject, "setLoadingScreen");
 }
 
 void FrontEndInterface::makeAIMove(action aiAction, std::vector<action> actionList)
 {
 	this->actList = actionList;
+	QMetaObject::invokeMethod(parentObject, "removeLoadingScreen");
 
 	if (std::get<0>(aiAction.location) != 9) {
 		QMetaObject::invokeMethod(parentObject, "removeStone",
@@ -50,6 +52,8 @@ void FrontEndInterface::makeAIMove(action aiAction, std::vector<action> actionLi
 			Q_ARG(QVariant, std::get<0>(aiAction.takeAway)),
 			Q_ARG(QVariant, std::get<1>(aiAction.takeAway)));
 	}
+
+	
 }
 
 void FrontEndInterface::resetVarPos()
@@ -114,6 +118,7 @@ void FrontEndInterface::tokenSelected(int rowIndex, int posIndex, int token)
 				Q_ARG(QVariant, playerToken));
 
 			emit setPlayerMoveInBackEnd(act);
+			QMetaObject::invokeMethod(parentObject, "setLoadingScreen");
 			
 		}
 	}
@@ -146,6 +151,7 @@ void FrontEndInterface::tokenSelected(int rowIndex, int posIndex, int token)
 				Q_ARG(QVariant, std::get<1>(act.target)),
 				Q_ARG(QVariant, playerToken));
 
+			QMetaObject::invokeMethod(parentObject, "setLoadingScreen");
 		}
 	}
 }
@@ -176,6 +182,7 @@ void FrontEndInterface::positionClicked(int ringIndex, int posIndex) {
 
 		resetVarPos();
 		
+		QMetaObject::invokeMethod(parentObject, "setLoadingScreen");
 
 	}
 	else if (tokenPosSet) {
@@ -195,7 +202,7 @@ void FrontEndInterface::positionClicked(int ringIndex, int posIndex) {
 				Q_ARG(QVariant, std::get<1>(simpleact.target)),
 				Q_ARG(QVariant, playerToken));
 
-
+			QMetaObject::invokeMethod(parentObject, "setLoadingScreen");
 		}
 		else {
 			clickPos = std::make_tuple(ringIndex, posIndex);

@@ -11,7 +11,7 @@ class Bot_Brain
 {
 	
 private:
-	int simulationCount = 500;
+	int simulationCount = 5000;
 	int rolloutcount = 1;
 	float explore = 0.5;
 	vector<string> path;
