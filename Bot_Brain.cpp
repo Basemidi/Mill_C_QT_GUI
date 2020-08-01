@@ -62,7 +62,7 @@ Mill_Board Bot_Brain::descent(Mill_Board gam)
 		gam.makeMove(bestaction);
 		path.push_back(gam.stateRepresentation());
 
-		if (gam.checkforwin() != 0) {
+		if (gam.checkforwin() != 0 || static_cast<int>(path.size()) > 1000) {
 			return gam;
 		}
 	}
